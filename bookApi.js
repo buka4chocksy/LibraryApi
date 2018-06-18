@@ -14,7 +14,7 @@ app.get('/', function(req, res){
     res.send(library.getBooks());
 });
 app.post('/api/addBook', function(req, res){
-    let book = new library.Book(library,req.body.name, req.body.author, req.body.year);
+    let book = new library.Book(library, req.body.name, req.body.author, req.body.year);
     library.addBook(book);
     res.send(library.getBooks());
 });
@@ -25,8 +25,7 @@ app.delete('/api/deleteBook', function(req, res){
 });
 app.put('/api/updateBook', function(req, res){
     let id = req.body.id;
-    let newBook = new library.Book(req.body.name, req.body.author, req.body.year, id);
-    library.updateBook(id, newBook);
+    library.updateBook(id,'year', req.body.year);
     console.log(`Book with ID:${id} has been updated.`);
     res.send(library.getBooks());
 });
