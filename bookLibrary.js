@@ -25,7 +25,7 @@ Library.prototype.Book = function(lib, name, author, year){
        let lastId = bks[bks.length-1].id;
             for (i=0; i<bks.length; i++){
                 if (bks[i].id >= lastId){
-                lastId = bks[i].id+1;
+                    lastId = bks[i].id+1;
                 }
             }
         this.id = lastId;
@@ -71,10 +71,26 @@ Library.prototype.deleteBook = function(id){
     this.updateLibrary(this.books);
     };
     
-Library.prototype.updateBook = function(id, updateBook){
-    let bookIndex = this.getBookByIndex(id);
-    this.books[bookIndex] = updateBook;
-    this.updateLibrary(this.books);
+Library.prototype.updateBook = function(id, param, value){
+    let index = this.getBookByIndex(id);
+    if (arguments.length !=3){
+        return "Error - You must provide an ID, a parameter to edit and a value.";
+    } else {
+        if (param == "name"){
+            this.books[index].name = value;
+        } else if (param == "author"){
+            this.books[index].author = value;
+        } else if(param == "year"){
+            this.books[index].year = value;
+        } else if (param == "all"){
+            this.books[index].name = value.name;
+            this.books[index].author = value.author;
+            this.books[index].year = value.year;
+        } else {
+            return "Error - You must specify what to update."
+        }
+        this.updateLibrary(this.books);
+    }
     };
     
 Library.prototype.getBooksByParam = function(param, value){
